@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="El Faro - Periódico Digital chileno con noticias de actualidad, deportes, negocios y más." />
+  <title>El Faro – Periódico Digital</title>
+
+  <!-- ============================================================
+       FRAMEWORK UI: BULMA (CDN)
+       Se utiliza Bulma v1.0.2 como framework principal de maquetación.
+       Bulma provee un sistema de grilla responsivo basado en Flexbox,
+       componentes prediseñados (navbar, cards, hero, notifications,
+       columns, footer, forms) y clases utilitarias.
+  ============================================================ -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+
+  <!-- Font Awesome para iconografía -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Google Fonts - Tipografías del periódico -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:wght@300;400;600&family=Oswald:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+       VARIABLES Y PERSONALIZACIÓN DE BULMA
+       Se define una paleta de colores editorial que se aplica
+       encima del tema base de Bulma.
+    ============================================================ */
+    :root {
+      --el-faro-ink:      #1a1209;
+      --el-faro-red:      #c0392b;
+      --el-faro-red-dark: #922b21;
+      --el-faro-gold:     #c8963e;
+      --el-faro-paper:    #f5f0e8;
+      --el-faro-gray:     #7a7060;
+    }
+
+    /* Tipografía base del sitio */
+    body {
+      font-family: 'Source Serif 4', Georgia, serif;
+      background-color: #f5f5f5;
+      color: var(--el-faro-ink);
+    }
+
+    /* ============================================================
+       COMPONENTE: BARRA SUPERIOR DE AVISOS (Requisito del cliente)
+       Usa el componente "notification" de Bulma y clases utilitarias.
+    ============================================================ */
+    .avisos-bar {
+      background-color: var(--el-faro-red);
+      color: #fff;
+      padding: 0.5rem 1rem;
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .avisos-bar .delete {
+      background-color: rgba(255,255,255,0.3);
+    }
+    .avisos-bar a {
+      color: #fff !important;
+      text-decoration: underline;
+    }
+    .avisos-bar a:hover {
+      color: var(--el-faro-gold) !important;
+    }
+
+    /* ============================================================
+       HEADER / MASTHEAD – Cabecera institucional
+    ============================================================ */
+    .masthead {
+      background-color: var(--el-faro-ink);
+      color: var(--el-faro-paper);
+      padding: 2rem 1rem 1.5rem;
+      text-align: center;
+      border-bottom: 3px solid var(--el-faro-gold);
+    }
+    .masthead h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 3.8rem;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      color: var(--el-faro-paper);
+      text-shadow: 3px 3px 0 var(--el-faro-red-dark);
+      margin: 0;
+    }
+    .masthead .tagline {
+      font-family: 'Source Serif 4', serif;
+      font-style: italic;
+      font-size: 0.9rem;
+      color: var(--el-faro-gold);
+      margin-top: 0.4rem;
+      letter-spacing: 0.05em;
+    }
+    .logo-circle {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--el-faro-red);
+      border: 3px solid var(--el-faro-gold);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 1rem;
+      vertical-align: middle;
+    }
+    .logo-circle svg {
+      width: 44px;
+      height: 44px;
+      fill: var(--el-faro-paper);
+    }
+
+    /* ============================================================
+       NAVBAR BULMA personalizado
+       Incluye menú principal + dropdown con secciones separadas.
+    ============================================================ */
+    .navbar.is-faro {
+      background-color: var(--el-faro-ink);
+      border-top: 2px solid var(--el-faro-gold);
+      border-bottom: 2px solid var(--el-faro-gold);
+      min-height: 3rem;
+    }
+    .navbar.is-faro .navbar-item,
+    .navbar.is-faro .navbar-link {
+      color: var(--el-faro-paper);
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background-color: transparent;
+    }
+    .navbar.is-faro .navbar-item:hover,
+    .navbar.is-faro .navbar-link:hover,
+    .navbar.is-faro .navbar-item.is-active {
+      color: var(--el-faro-gold) !important;
+      background-color: rgba(200, 150, 62, 0.1) !important;
+    }
+    .navbar.is-faro .navbar-burger {
+      color: var(--el-faro-paper);
+    }
+    .navbar.is-faro .navbar-dropdown {
+      background-color: var(--el-faro-ink);
+      border-top: 2px solid var(--el-faro-gold);
+    }
+    .navbar.is-faro .navbar-dropdown .navbar-item {
+      color: var(--el-faro-paper);
+    }
+    .navbar.is-faro .navbar-link::after {
+      border-color: var(--el-faro-gold);
+    }
+
+    /* ============================================================
+       HERO - Artículo destacado (más reciente)
+       Usa el componente "hero" de Bulma con tamaño medium.
+    ============================================================ */
+    .hero.destacado {
+      background: linear-gradient(rgba(26, 18, 9, 0.65), rgba(26, 18, 9, 0.85)),
+                  url('https://images.unsplash.com/photo-1495020689067-958852a7765e?w=1600') center/cover;
+      color: #fff;
+      margin-bottom: 2rem;
+    }
+    .hero.destacado .title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      color: #fff !important;
+      font-size: 2.8rem;
+      line-height: 1.1;
+    }
+    .hero.destacado .subtitle {
+      font-family: 'Source Serif 4', serif;
+      color: #f5f0e8 !important;
+      font-size: 1.1rem;
+      font-style: italic;
+    }
+    .hero.destacado .tag {
+      background-color: var(--el-faro-red);
+      color: #fff;
+      font-family: 'Oswald', sans-serif;
+      letter-spacing: 0.15em;
+    }
+
+    /* ============================================================
+       CARDS - Artículos secundarios más chicos
+    ============================================================ */
+    .articulo-card {
+      background-color: #fff;
+      border-radius: 6px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      height: 100%;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .articulo-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    }
+    .articulo-card .card-content {
+      padding: 1.2rem;
+    }
+    .articulo-card .title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      line-height: 1.3;
+      color: var(--el-faro-ink);
+      margin-bottom: 0.5rem;
+    }
+    .articulo-card .news-text {
+      font-family: 'Source Serif 4', serif;
+      font-size: 0.88rem;
+      color: #444;
+      line-height: 1.55;
+    }
+    .articulo-card .card-image {
+      overflow: hidden;
+      border-radius: 6px 6px 0 0;
+      height: 180px;
+    }
+    .articulo-card .card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+    .articulo-card:hover .card-image img {
+      transform: scale(1.05);
+    }
+    .tag.cat-general  { background-color: var(--el-faro-red) !important; color: #fff !important; }
+    .tag.cat-deporte  { background-color: #1a6b3c !important; color: #fff !important; }
+    .tag.cat-negocios { background-color: #1a4a7a !important; color: #fff !important; }
+
+    /* ============================================================
+       Títulos de sección con estilo editorial
+    ============================================================ */
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 2rem;
+      color: var(--el-faro-ink);
+      border-bottom: 3px double var(--el-faro-gold);
+      padding-bottom: 0.4rem;
+      margin-bottom: 1.5rem;
+    }
+    .section-title .tag {
+      font-family: 'Oswald', sans-serif;
+      letter-spacing: 0.15em;
+      vertical-align: middle;
+      margin-left: 0.6rem;
+    }
+
+    /* ============================================================
+       CONTROL DE VISIBILIDAD DE SECCIONES (SPA)
+    ============================================================ */
+    .seccion { display: none; }
+    .seccion.is-active { display: block; }
+
+    /* ============================================================
+       FOOTER AMPLIADO - Varias columnas
+    ============================================================ */
+    footer.footer-faro {
+      background-color: var(--el-faro-ink);
+      color: var(--el-faro-paper);
+      padding: 3.5rem 1.5rem 1.5rem;
+      margin-top: 3rem;
+      border-top: 4px solid var(--el-faro-gold);
+    }
+    footer.footer-faro h4 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      color: var(--el-faro-gold);
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      letter-spacing: 0.03em;
+    }
+    footer.footer-faro p,
+    footer.footer-faro li,
+    footer.footer-faro a {
+      color: var(--el-faro-paper);
+      font-family: 'Source Serif 4', serif;
+      font-size: 0.92rem;
+    }
+    footer.footer-faro a:hover {
+      color: var(--el-faro-gold);
+      text-decoration: underline;
+    }
+    footer.footer-faro ul {
+      list-style: none;
+      padding: 0;
+    }
+    footer.footer-faro ul li {
+      padding: 0.25rem 0;
+    }
+    .footer-social a {
+      display: inline-block;
+      width: 38px;
+      height: 38px;
+      line-height: 38px;
+      text-align: center;
+      border-radius: 50%;
+      background-color: var(--el-faro-red);
+      color: #fff !important;
+      margin-right: 0.4rem;
+      transition: background-color 0.2s;
+    }
+    .footer-social a:hover {
+      background-color: var(--el-faro-gold);
+      text-decoration: none !important;
+    }
+    .footer-bottom {
+      border-top: 1px solid rgba(245, 240, 232, 0.2);
+      margin-top: 2rem;
+      padding-top: 1.2rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: rgba(245, 240, 232, 0.7);
+    }
+    .newsletter-input {
+      background-color: rgba(255,255,255,0.1) !important;
+      border-color: rgba(255,255,255,0.3) !important;
+      color: var(--el-faro-paper) !important;
+    }
+    .newsletter-input::placeholder {
+      color: rgba(245, 240, 232, 0.6) !important;
+    }
+
+    /* ============================================================
+       FORMULARIOS PERSONALIZADOS
+    ============================================================ */
+    .form-faro {
+      background-color: #fff;
+      border-left: 4px solid var(--el-faro-red);
+      padding: 1.5rem 1.8rem;
+      border-radius: 0 6px 6px 0;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+      margin-bottom: 2rem;
+    }
+    .form-faro h3 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--el-faro-ink);
+      margin-bottom: 1rem;
+    }
+    .button.is-faro {
+      background-color: var(--el-faro-red);
+      color: #fff;
+      font-family: 'Oswald', sans-serif;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: none;
+    }
+    .button.is-faro:hover {
+      background-color: var(--el-faro-red-dark);
+      color: #fff;
+    }
+
+    /* Contador de artículos estilo "badge" */
+    .contador-badge {
+      display: inline-block;
+      background-color: var(--el-faro-ink);
+      color: var(--el-faro-paper);
+      padding: 0.25rem 0.8rem;
+      border-radius: 20px;
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      border: 1px solid var(--el-faro-gold);
+      margin-left: 0.8rem;
+    }
+    .contador-badge span {
+      background-color: var(--el-faro-red);
+      color: #fff;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 0.3rem;
+      font-weight: 700;
+    }
+
+    /* Responsividad adicional */
+    @media (max-width: 768px) {
+      .masthead h1 { font-size: 2.5rem; }
+      .hero.destacado .title { font-size: 2rem; }
+      .logo-circle { width: 56px; height: 56px; }
+      .logo-circle svg { width: 34px; height: 34px; }
+      .section-title { font-size: 1.5rem; }
+    }
+
+    /* Mensaje de éxito estilo Bulma notification */
+    .msg-exito {
+      display: none;
+      margin-top: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     1. SECCIÓN SUPERIOR DE AVISOS (Necesidad del cliente)
+     Componente Bulma: notification + is-danger
+============================================================ -->
+<div class="avisos-bar" id="barra-avisos">
+  <div class="container is-fluid">
+    <div class="level is-mobile">
+      <div class="level-left">
+        <span class="level-item">
+          <span class="icon mr-2"><i class="fas fa-bullhorn"></i></span>
+          <span id="reloj-header">Cargando fecha...</span>
+        </span>
+      </div>
+      <div class="level-right is-hidden-mobile">
+        <span class="level-item mr-4">
+          <i class="fas fa-star mr-1"></i>
+          ÚLTIMA HORA:
+          <a href="#" class="ml-2">Cumbre APEC 2026 se celebrará en Santiago</a>
+        </span>
+        <span class="level-item">
+          <i class="fas fa-newspaper mr-1"></i>
+          Edición Digital · Año I · N° 1
+        </span>
+      </div>
+      <button class="delete is-small" aria-label="cerrar avisos" onclick="cerrarAvisos()"></button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     MASTHEAD - Cabecera con logo y nombre del diario
+============================================================ -->
+<header class="masthead">
+  <div class="container">
+    <div class="is-flex is-justify-content-center is-align-items-center is-flex-wrap-wrap">
+      <div class="logo-circle">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+          <rect x="26" y="20" width="12" height="30" rx="2"/>
+          <rect x="22" y="14" width="20" height="8" rx="2"/>
+          <circle cx="32" cy="11" r="5"/>
+          <line x1="32" y1="5" x2="32" y2="2" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <line x1="37" y1="6.5" x2="40" y2="4" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <line x1="27" y1="6.5" x2="24" y2="4" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <rect x="20" y="50" width="24" height="5" rx="2"/>
+          <rect x="16" y="55" width="32" height="4" rx="1"/>
+          <rect x="26" y="27" width="12" height="3" rx="1" fill="#c0392b" opacity="0.7"/>
+          <rect x="26" y="37" width="12" height="3" rx="1" fill="#c0392b" opacity="0.7"/>
+        </svg>
+      </div>
+      <div>
+        <h1>El Faro</h1>
+        <p class="tagline">Periódico Digital — Informando con luz propia desde 2026</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================================
+     2. NAVBAR BULMA - Menú principal + Dropdown (secciones separadas)
+     Necesidad: "Acceso a otras secciones separadas del menú"
+============================================================ -->
+<nav class="navbar is-faro" role="navigation" aria-label="menú principal">
+  <div class="container">
+    <div class="navbar-brand">
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu" onclick="toggleBurger(this)">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div id="navMenu" class="navbar-menu">
+      <div class="navbar-start">
+        <!-- Menú principal: secciones más importantes -->
+        <a class="navbar-item is-active" data-section="inicio" onclick="mostrarSeccion('inicio', this)">
+          <span class="icon mr-1"><i class="fas fa-home"></i></span> Inicio
+        </a>
+        <a class="navbar-item" data-section="deporte" onclick="mostrarSeccion('deporte', this)">
+          <span class="icon mr-1"><i class="fas fa-futbol"></i></span> Deporte
+        </a>
+        <a class="navbar-item" data-section="negocios" onclick="mostrarSeccion('negocios', this)">
+          <span class="icon mr-1"><i class="fas fa-briefcase"></i></span> Negocios
+        </a>
+
+        <!-- DROPDOWN con secciones separadas adicionales -->
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            <span class="icon mr-1"><i class="fas fa-th-large"></i></span> Más secciones
+          </a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" data-section="cultura" onclick="mostrarSeccion('cultura', this)">
+              <span class="icon mr-1"><i class="fas fa-palette"></i></span> Cultura
+            </a>
+            <a class="navbar-item" data-section="tecnologia" onclick="mostrarSeccion('tecnologia', this)">
+              <span class="icon mr-1"><i class="fas fa-microchip"></i></span> Tecnología
+            </a>
+            <a class="navbar-item" data-section="opinion" onclick="mostrarSeccion('opinion', this)">
+              <span class="icon mr-1"><i class="fas fa-comment-dots"></i></span> Opinión
+            </a>
+            <hr class="navbar-divider" style="background-color: rgba(200,150,62,0.3);">
+            <a class="navbar-item" data-section="contacto" onclick="mostrarSeccion('contacto', this)">
+              <span class="icon mr-1"><i class="fas fa-envelope"></i></span> Contacto
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="field has-addons">
+            <div class="control">
+              <input class="input is-small" type="text" placeholder="Buscar noticias..." id="busqueda-input">
+            </div>
+            <div class="control">
+              <button class="button is-faro is-small">
+                <span class="icon"><i class="fas fa-search"></i></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ============================================================
+     MAIN - Contenido principal
+============================================================ -->
+<main>
+
+  <!-- =================== SECCIÓN INICIO =================== -->
+  <section id="inicio" class="seccion is-active">
+
+    <!-- 3. HERO - Artículo destacado más reciente -->
+    <section class="hero is-medium destacado">
+      <div class="hero-body">
+        <div class="container">
+          <span class="tag is-medium">
+            <i class="fas fa-fire mr-2"></i> NOTA DESTACADA
+          </span>
+          <h1 class="title mt-4">Chile avanza en la era de la energía solar</h1>
+          <p class="subtitle">
+            El Ministerio de Energía anunció esta semana que Chile superó los 5.000 MW de capacidad instalada
+            en energía solar fotovoltaica, consolidándose como líder regional en energías renovables.
+          </p>
+          <p class="has-text-white">
+            <i class="far fa-clock mr-1"></i> Hace 2 horas ·
+            <i class="far fa-user ml-2 mr-1"></i> Redacción El Faro
+          </p>
+          <button class="button is-warning mt-4">
+            <span>Leer más</span>
+            <span class="icon"><i class="fas fa-arrow-right"></i></span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contenedor principal con columnas Bulma -->
+    <div class="container px-4">
+      <h2 class="section-title">
+        Noticias Generales
+        <span class="tag cat-general">Inicio</span>
+        <span class="contador-badge">Artículos: <span id="contador-inicio">0</span></span>
+      </h2>
+
+      <!-- 4. GRID DE ARTÍCULOS MÁS CHICOS con Bulma columns -->
+      <div class="columns is-multiline" id="grid-inicio"></div>
+
+      <!-- Formulario para agregar nuevo artículo -->
+      <div class="form-faro">
+        <h3><i class="fas fa-edit mr-2"></i>Publicar nuevo artículo</h3>
+        <div class="field">
+          <label class="label">Título del artículo</label>
+          <div class="control">
+            <input class="input" type="text" id="titulo-inicio" placeholder="Ej: Chile lidera en energías renovables...">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Descripción del artículo</label>
+          <div class="control">
+            <textarea class="textarea" id="desc-inicio" placeholder="Escribe el contenido del artículo aquí..."></textarea>
+          </div>
+        </div>
+        <div class="field">
+          <div class="control">
+            <button class="button is-faro" onclick="agregarArticulo('inicio','General')">
+              <span class="icon"><i class="fas fa-paper-plane"></i></span>
+              <span>Publicar artículo</span>
+            </button>
+          </div>
+        </div>
+        <div class="notification is-success msg-exito" id="exito-inicio">
+          <i class="fas fa-check-circle mr-2"></i> Artículo publicado correctamente.
+        </div>
+      </div>
+
+      <!-- Sección multimedia con columns de Bulma -->
+      <h2 class="section-title">Multimedia <span class="tag cat-general">Audio &amp; Video</span></h2>
+      <div class="columns">
+        <div class="column is-half">
+          <div class="card">
+            <div class="card-content">
+              <p class="title is-5">
+                <i class="fas fa-play-circle mr-2 has-text-danger"></i>
+                Reportaje en Video
+              </p>
+              <video controls style="width:100%; border-radius:4px; background:#000;">
+                <source src="Videoenergia.mp4" type="video/mp4">
+                Tu navegador no soporta video.
+              </video>
+              <p class="is-size-7 has-text-grey mt-2">
+                <em>Reportaje especial: Energías renovables en Chile – El Faro TV, marzo 2026.</em>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="column is-half">
+          <div class="card">
+            <div class="card-content">
+              <p class="title is-5">
+                <i class="fas fa-podcast mr-2 has-text-danger"></i>
+                Podcast El Faro
+              </p>
+              <audio controls style="width:100%;">
+                <source src="Cern.mp3" type="audio/mpeg">
+                Tu navegador no soporta audio.
+              </audio>
+              <p class="is-size-7 has-text-grey mt-2">
+                <em>«Chile digital: oportunidades y desafíos en 2026».</em>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== SECCIÓN DEPORTE =================== -->
+  <section id="deporte" class="seccion">
+    <div class="container px-4 pt-5">
+      <h2 class="section-title">
+        Noticias de Deporte
+        <span class="tag cat-deporte">Deporte</span>
+        <span class="contador-badge">Artículos: <span id="contador-deporte">0</span></span>
+      </h2>
+      <div class="columns is-multiline" id="grid-deporte"></div>
+
+      <div class="form-faro" style="border-left-color: #1a6b3c;">
+        <h3><i class="fas fa-edit mr-2"></i>Publicar artículo de Deporte</h3>
+        <div class="field">
+          <label class="label">Título</label>
+          <input class="input" type="text" id="titulo-deporte" placeholder="Ej: La Roja vence en amistoso...">
+        </div>
+        <div class="field">
+          <label class="label">Descripción</label>
+          <textarea class="textarea" id="desc-deporte" placeholder="Escribe el contenido..."></textarea>
+        </div>
+        <button class="button is-faro" onclick="agregarArticulo('deporte','Deporte')" style="background-color:#1a6b3c;">
+          <span class="icon"><i class="fas fa-paper-plane"></i></span>
+          <span>Publicar artículo</span>
+        </button>
+        <div class="notification is-success msg-exito" id="exito-deporte">
+          <i class="fas fa-check-circle mr-2"></i> Artículo publicado correctamente.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== SECCIÓN NEGOCIOS =================== -->
+  <section id="negocios" class="seccion">
+    <div class="container px-4 pt-5">
+      <h2 class="section-title">
+        Negocios &amp; Emprendimiento
+        <span class="tag cat-negocios">Negocios</span>
+        <span class="contador-badge">Artículos: <span id="contador-negocios">0</span></span>
+      </h2>
+      <div class="columns is-multiline" id="grid-negocios"></div>
+
+      <div class="form-faro" style="border-left-color: #1a4a7a;">
+        <h3><i class="fas fa-edit mr-2"></i>Publicar artículo de Negocios</h3>
+        <div class="field">
+          <label class="label">Título</label>
+          <input class="input" type="text" id="titulo-negocios" placeholder="Ej: Startup cierra ronda de inversión...">
+        </div>
+        <div class="field">
+          <label class="label">Descripción</label>
+          <textarea class="textarea" id="desc-negocios" placeholder="Escribe el contenido..."></textarea>
+        </div>
+        <button class="button is-faro" onclick="agregarArticulo('negocios','Negocios')" style="background-color:#1a4a7a;">
+          <span class="icon"><i class="fas fa-paper-plane"></i></span>
+          <span>Publicar artículo</span>
+        </button>
+        <div class="notification is-success msg-exito" id="exito-negocios">
+          <i class="fas fa-check-circle mr-2"></i> Artículo publicado correctamente.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== SECCIONES ADICIONALES DROPDOWN =================== -->
+  <section id="cultura" class="seccion">
+    <div class="container px-4 pt-5">
+      <h2 class="section-title">Cultura <span class="tag cat-general">Cultura</span></h2>
+      <div class="columns is-multiline">
+        <div class="column is-4">
+          <div class="card articulo-card">
+            <div class="card-image">
+              <img src="https://images.unsplash.com/photo-1578269174936-2709b6aeb913?w=600" alt="Cultura">
+            </div>
+            <div class="card-content">
+              <span class="tag cat-general mb-2">Cultura</span>
+              <p class="title">Teatro a Mil 2026 trae 40 obras internacionales a Santiago</p>
+              <p class="news-text">El festival de teatro más importante de Chile anuncia una programación con compañías de
+              15 países, con énfasis en dramaturgia latinoamericana contemporánea.</p>
+            </div>
+          </div>
+        </div>
+        <div class="column is-4">
+          <div class="card articulo-card">
+            <div class="card-image">
+              <img src="https://images.unsplash.com/photo-1518998053901-5348d3961a04?w=600" alt="Cultura">
+            </div>
+            <div class="card-content">
+              <span class="tag cat-general mb-2">Música</span>
+              <p class="title">Mon Laferte confirma gira nacional «Autopoiética»</p>
+              <p class="news-text">La cantante chilena visitará Iquique, La Serena, Santiago, Concepción y Puerto Montt
+              entre mayo y junio de 2026.</p>
+            </div>
+          </div>
+        </div>
+        <div class="column is-4">
+          <div class="card articulo-card">
+            <div class="card-image">
+              <img src="https://images.unsplash.com/photo-1533105079780-92b9be482077?w=600" alt="Cultura">
+            </div>
+            <div class="card-content">
+              <span class="tag cat-general mb-2">Literatura</span>
+              <p class="title">Nona Fernández gana Premio Nacional de Literatura 2026</p>
+              <p class="news-text">La escritora chilena es reconocida por su obra narrativa que aborda la memoria y la
+              historia reciente del país desde una perspectiva íntima.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tecnologia" class="seccion">
+    <div class="container px-4 pt-5">
+      <h2 class="section-title">Tecnología <span class="tag cat-negocios">Tech</span></h2>
+      <div class="columns is-multiline">
+        <div class="column is-4">
+          <div class="card articulo-card">
+            <div class="card-image">
+              <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600" alt="Tecnología">
+            </div>
+            <div class="card-content">
+              <span class="tag cat-negocios mb-2">IA</span>
+              <p class="title">Universidad de Chile desarrolla IA para detectar sismos</p>
+              <p class="news-text">Un equipo del Centro Sismológico Nacional utiliza redes neuronales para predecir
+              eventos sísmicos con hasta 45 segundos de anticipación.</p>
+            </div>
+          </div>
+        </div>
+        <div class="column is-4">
+          <div class="card articulo-card">
+            <div class="card-image">
+              <img src="https://images.unsplash.com/photo-1563770660941-20978e870e26?w=600" alt="Prótesis biónicas">
+            </div>
+            <div class="card-content">
+              <span class="tag cat-negocios mb-2">Biotecnología</span>
+              <p class="title">Prótesis biónicas chilenas llegan a Latinoamérica</p>
+              <p class="news-text">Una startup nacional exporta prótesis impresas en 3D a Perú y Colombia, con precios
+              hasta 10 veces menores que las tradicionales.</p>
+            </div>
+          </div>
+        </div>
+        <div class="column is-4">
+          <div class="card articulo-card">
+            <div class="card-image">
+              <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600" alt="Tecnología">
+            </div>
+            <div class="card-content">
+              <span class="tag cat-negocios mb-2">Ciberseguridad</span>
+              <p class="title">Nueva ley de ciberseguridad entra en vigencia</p>
+              <p class="news-text">La Agencia Nacional de Ciberseguridad comienza a regular los estándares de
+              protección de datos en empresas chilenas.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="opinion" class="seccion">
+    <div class="container px-4 pt-5">
+      <h2 class="section-title">Opinión <span class="tag cat-general">Columnas</span></h2>
+      <div class="columns is-multiline">
+        <div class="column is-6">
+          <div class="card articulo-card">
+            <div class="card-content">
+              <span class="tag cat-general mb-2">Columna</span>
+              <p class="title">El desafío de la educación digital en Chile</p>
+              <p class="news-text">Por <strong>Ana Martínez</strong> — Analista educacional.
+              Tras la pandemia, quedó en evidencia la brecha digital que separa a estudiantes de regiones y zonas
+              rurales de los recursos tecnológicos. Es hora de repensar nuestra política educativa...</p>
+            </div>
+          </div>
+        </div>
+        <div class="column is-6">
+          <div class="card articulo-card">
+            <div class="card-content">
+              <span class="tag cat-general mb-2">Editorial</span>
+              <p class="title">Transparencia y rendición de cuentas</p>
+              <p class="news-text">Por <strong>Consejo Editorial</strong>.
+              La consolidación democrática pasa por instituciones sólidas, pero también por una ciudadanía
+              informada. Los medios independientes cumplen un rol fundamental...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== SECCIÓN CONTACTO =================== -->
+  <section id="contacto" class="seccion">
+    <div class="container px-4 pt-5">
+      <h2 class="section-title">Contacto <span class="tag cat-general">Escríbenos</span></h2>
+
+      <div class="columns">
+        <div class="column is-7">
+          <div class="form-faro">
+            <h3><i class="fas fa-envelope mr-2"></i>Envíanos un mensaje</h3>
+            <div class="field">
+              <label class="label">Tu nombre</label>
+              <div class="control has-icons-left">
+                <input class="input" type="text" id="contacto-nombre" placeholder="Ej: María González">
+                <span class="icon is-left"><i class="fas fa-user"></i></span>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Tu mensaje</label>
+              <div class="control">
+                <textarea class="textarea" id="contacto-mensaje" placeholder="Escribe tu consulta aquí..."></textarea>
+              </div>
+            </div>
+            <div class="field">
+              <div class="control">
+                <button class="button is-faro" onclick="enviarContacto()">
+                  <span class="icon"><i class="fas fa-paper-plane"></i></span>
+                  <span>Enviar mensaje</span>
+                </button>
+              </div>
+            </div>
+            <div class="notification is-success msg-exito" id="exito-contacto"></div>
+          </div>
+        </div>
+
+        <div class="column is-5">
+          <div class="box">
+            <h3 style="font-family:'Playfair Display';font-weight:700;font-size:1.3rem;">Información de contacto</h3>
+            <hr>
+            <p><i class="fas fa-map-marker-alt has-text-danger mr-2"></i>Av. Providencia 1234, Santiago, Chile</p>
+            <p class="mt-2"><i class="fas fa-phone has-text-danger mr-2"></i>+56 2 2345 6789</p>
+            <p class="mt-2"><i class="fas fa-envelope has-text-danger mr-2"></i>contacto@elfaro.cl</p>
+            <p class="mt-2"><i class="fas fa-clock has-text-danger mr-2"></i>Lun-Vie 9:00 - 18:00</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============================================================
+     5. FOOTER GRANDE - Múltiples columnas (Necesidad del cliente)
+============================================================ -->
+<footer class="footer-faro">
+  <div class="container">
+    <div class="columns">
+
+      <!-- Columna 1: Sobre El Faro -->
+      <div class="column is-4">
+        <h4>
+          <span class="logo-circle" style="width:32px;height:32px;margin-right:0.5rem;">
+            <svg viewBox="0 0 64 64" style="width:20px;height:20px;">
+              <rect x="26" y="20" width="12" height="30" rx="2" fill="white"/>
+              <rect x="22" y="14" width="20" height="8" rx="2" fill="white"/>
+              <circle cx="32" cy="11" r="5" fill="white"/>
+            </svg>
+          </span>
+          Sobre El Faro
+        </h4>
+        <p>El Faro es un periódico digital chileno comprometido con el periodismo independiente, la verdad y la
+        diversidad de voces. Informamos con luz propia desde 2026.</p>
+        <div class="footer-social mt-4">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+
+      <!-- Columna 2: Secciones -->
+      <div class="column is-2">
+        <h4>Secciones</h4>
+        <ul>
+          <li><a href="#" onclick="mostrarSeccion('inicio')">Inicio</a></li>
+          <li><a href="#" onclick="mostrarSeccion('deporte')">Deporte</a></li>
+          <li><a href="#" onclick="mostrarSeccion('negocios')">Negocios</a></li>
+          <li><a href="#" onclick="mostrarSeccion('cultura')">Cultura</a></li>
+          <li><a href="#" onclick="mostrarSeccion('tecnologia')">Tecnología</a></li>
+          <li><a href="#" onclick="mostrarSeccion('opinion')">Opinión</a></li>
+        </ul>
+      </div>
+
+      <!-- Columna 3: Enlaces útiles -->
+      <div class="column is-2">
+        <h4>Enlaces</h4>
+        <ul>
+          <li><a href="#">Quiénes somos</a></li>
+          <li><a href="#">Equipo editorial</a></li>
+          <li><a href="#">Publicidad</a></li>
+          <li><a href="#">Términos de uso</a></li>
+          <li><a href="#">Política de privacidad</a></li>
+          <li><a href="#" onclick="mostrarSeccion('contacto')">Contacto</a></li>
+        </ul>
+      </div>
+
+      <!-- Columna 4: Newsletter -->
+      <div class="column is-4">
+        <h4>Newsletter</h4>
+        <p>Suscríbete y recibe las noticias más relevantes del día directo en tu email.</p>
+        <div class="field has-addons mt-3">
+          <div class="control is-expanded">
+            <input class="input newsletter-input" type="email" placeholder="tu@email.com">
+          </div>
+          <div class="control">
+            <button class="button is-faro">Suscribir</button>
+          </div>
+        </div>
+        <p class="mt-4" style="font-size:0.85rem;">
+          <i class="fas fa-map-marker-alt mr-1"></i> Av. Providencia 1234, Santiago, Chile<br>
+          <i class="fas fa-phone mr-1 mt-1"></i> +56 2 2345 6789<br>
+          <i class="fas fa-envelope mr-1 mt-1"></i> contacto@elfaro.cl
+        </p>
+      </div>
+    </div>
+
+    <!-- Footer bottom -->
+    <div class="footer-bottom">
+      <p>
+        &copy; 2026 <strong style="color:var(--el-faro-gold);">El Faro</strong> — Periódico Digital ·
+        Todos los derechos reservados ·
+        Desarrollado con HTML5 + Bulma Framework · AIEP Ingeniería en Informática
+      </p>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     JAVASCRIPT - Funcionalidad del sitio
+============================================================ -->
+<script>
+  /* ============================================================
+     Reloj en vivo en la barra de avisos
+  ============================================================ */
+  const DIAS  = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+  const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+
+  function actualizarReloj() {
+    const ahora = new Date();
+    const texto = `Santiago, Chile · ${DIAS[ahora.getDay()]} ${ahora.getDate()} de ${MESES[ahora.getMonth()]} de ${ahora.getFullYear()} · ${String(ahora.getHours()).padStart(2,'0')}:${String(ahora.getMinutes()).padStart(2,'0')}:${String(ahora.getSeconds()).padStart(2,'0')}`;
+    const el = document.getElementById('reloj-header');
+    if (el) el.textContent = texto;
+  }
+  actualizarReloj();
+  setInterval(actualizarReloj, 1000);
+
+  /* Cerrar barra de avisos */
+  function cerrarAvisos() {
+    document.getElementById('barra-avisos').style.display = 'none';
+  }
+
+  /* ============================================================
+     Burger menu para móvil
+  ============================================================ */
+  function toggleBurger(burger) {
+    const target = document.getElementById(burger.dataset.target);
+    burger.classList.toggle('is-active');
+    target.classList.toggle('is-active');
+  }
+
+  /* ============================================================
+     Navegación entre secciones (SPA)
+  ============================================================ */
+  function mostrarSeccion(id, btn) {
+    document.querySelectorAll('.seccion').forEach(s => s.classList.remove('is-active'));
+    document.querySelectorAll('.navbar-item[data-section]').forEach(b => b.classList.remove('is-active'));
+
+    const seccion = document.getElementById(id);
+    if (seccion) seccion.classList.add('is-active');
+
+    if (btn && btn.classList) {
+      btn.classList.add('is-active');
+    } else {
+      const link = document.querySelector(`.navbar-item[data-section="${id}"]`);
+      if (link) link.classList.add('is-active');
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /* ============================================================
+     Datos de artículos
+  ============================================================ */
+  const imgs = {
+    inicio: [
+      'https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600',
+      'https://images.unsplash.com/photo-1581262208435-41726149a759?w=600',
+      'https://images.unsplash.com/photo-1473773508845-188df298d2d1?w=600'
+    ],
+    deporte: [
+      'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=600',
+      'https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=600',
+      'https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?w=600'
+    ],
+    negocios: [
+      'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=600',
+      'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=600',
+      'https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=600'
+    ]
+  };
+
+  const articulosData = {
+    inicio: [
+      { cat:'General', catClass:'cat-general', titulo:'Nuevo proyecto de ley busca modernizar la educación técnica', texto:'El Ejecutivo ingresó al Congreso un proyecto que reforma la educación técnico-profesional en Chile, incorporando competencias digitales e IA desde enseñanza media.'},
+      { cat:'General', catClass:'cat-general', titulo:'Metro de Santiago inaugura nueva extensión de la Línea 7', texto:'Con una inversión de US$2.500 millones, la Línea 7 conectará Renca con Vitacura, beneficiando a más de 800.000 usuarios diarios.'},
+      { cat:'General', catClass:'cat-general', titulo:'Temporada de lluvias trae alivio hídrico a la Zona Central', texto:'Tras varios años de sequía, la temporada invernal 2026 ha traído precipitaciones sobre el promedio histórico, generando esperanza para el sector agrícola.'}
+    ],
+    deporte: [
+      { cat:'Fútbol', catClass:'cat-deporte', titulo:'La Roja Sub-23 clasifica al Preolímpico Sudamericano', texto:'La selección chilena sub-23 logró su clasificación tras vencer 2-0 a Bolivia. El objetivo es llegar a los Juegos Olímpicos de Los Ángeles 2028.'},
+      { cat:'Tiro', catClass:'cat-deporte', titulo:'Francisca Crovetto consigue oro en Copa del Mundo de Tiro', texto:'La tiradora chilena se colgó la medalla de oro en la Copa del Mundo realizada en Múnich, marcando 43/50 en la final de Trap femenino.'},
+      { cat:'Tenis', catClass:'cat-deporte', titulo:'Cristian Garín irrumpe en el Top 20 del ranking ATP', texto:'El tenista chileno alcanzó el puesto 18 tras su actuación en el Masters 1000 de Miami, donde llegó hasta la semifinal.'}
+    ],
+    negocios: [
+      { cat:'Tecnología', catClass:'cat-negocios', titulo:'Startup Bionix cierra ronda de US$3 millones para prótesis biónicas', texto:'La empresa utiliza IA para personalizar cada prótesis según las necesidades del paciente. Planea expandirse a Colombia, Perú y México.'},
+      { cat:'Economía', catClass:'cat-negocios', titulo:'El comercio electrónico en Chile creció 28% en el primer trimestre', texto:'Según la Cámara de Comercio de Santiago, las categorías con mayor expansión fueron tecnología, salud y alimentos gourmet.'},
+      { cat:'Emprendimiento', catClass:'cat-negocios', titulo:'Corfo lanza programa para apoyar a 500 emprendedoras de regiones', texto:'El programa «Mujeres que Innovan 2026» entrega capital semilla de hasta $6 millones, mentoría y acompañamiento durante 12 meses.'}
+    ]
+  };
+
+  /* ============================================================
+     Renderizar artículos dentro de columnas Bulma
+  ============================================================ */
+  function renderizarArticulos(seccion) {
+    const grid = document.getElementById('grid-' + seccion);
+    const contador = document.getElementById('contador-' + seccion);
+    const lista = articulosData[seccion];
+    if (!grid) return;
+    grid.innerHTML = '';
+
+    lista.forEach((art, i) => {
+      // Primer artículo ocupa más espacio (destacado), los demás más chicos
+      const colSize = (i === 0) ? 'is-6' : 'is-3';
+      const col = document.createElement('div');
+      col.className = 'column ' + colSize;
+      const imgUrl = imgs[seccion] ? imgs[seccion][i % imgs[seccion].length] : '';
+      col.innerHTML = `
+        <div class="card articulo-card">
+          ${imgUrl ? `<div class="card-image"><img src="${imgUrl}" alt="${art.titulo}" loading="lazy"></div>` : ''}
+          <div class="card-content">
+            <span class="tag ${art.catClass} mb-2">${art.cat}</span>
+            <p class="title">${art.titulo}</p>
+            <p class="news-text">${art.texto}</p>
+            <p class="mt-2" style="font-size:0.78rem;color:#888;">
+              <i class="far fa-clock mr-1"></i> Publicado hoy
+            </p>
+          </div>
+        </div>
+      `;
+      grid.appendChild(col);
+    });
+    if (contador) contador.textContent = lista.length;
+  }
+
+  /* ============================================================
+     Agregar artículo dinámico
+  ============================================================ */
+  function agregarArticulo(seccion, categoria) {
+    const inputTitulo = document.getElementById('titulo-' + seccion);
+    const inputDesc   = document.getElementById('desc-' + seccion);
+    const msgExito    = document.getElementById('exito-' + seccion);
+
+    const titulo = inputTitulo.value.trim();
+    const desc   = inputDesc.value.trim();
+
+    if (!titulo || !desc) {
+      alert('Por favor, completa el título y la descripción del artículo.');
+      return;
+    }
+
+    const catClassMap = { inicio:'cat-general', deporte:'cat-deporte', negocios:'cat-negocios' };
+
+    articulosData[seccion].push({
+      cat: categoria,
+      catClass: catClassMap[seccion] || 'cat-general',
+      titulo: titulo,
+      texto: desc
+    });
+
+    renderizarArticulos(seccion);
+    inputTitulo.value = '';
+    inputDesc.value = '';
+    msgExito.style.display = 'block';
+    setTimeout(() => { msgExito.style.display = 'none'; }, 3000);
+  }
+
+  /* ============================================================
+     Enviar formulario de contacto
+  ============================================================ */
+  function enviarContacto() {
+    const nombre  = document.getElementById('contacto-nombre').value.trim();
+    const mensaje = document.getElementById('contacto-mensaje').value.trim();
+    const msg     = document.getElementById('exito-contacto');
+
+    if (!nombre || !mensaje) {
+      alert('Por favor, completa tu nombre y tu mensaje.');
+      return;
+    }
+    msg.innerHTML = `<i class="fas fa-check-circle mr-2"></i> Gracias, ${nombre}. Tu mensaje fue recibido. Te contactaremos pronto.`;
+    msg.style.display = 'block';
+    document.getElementById('contacto-nombre').value = '';
+    document.getElementById('contacto-mensaje').value = '';
+    setTimeout(() => { msg.style.display = 'none'; }, 4000);
+  }
+
+  /* ============================================================
+     Inicialización
+  ============================================================ */
+  window.addEventListener('DOMContentLoaded', () => {
+    renderizarArticulos('inicio');
+    renderizarArticulos('deporte');
+    renderizarArticulos('negocios');
+  });
+</script>
+</body>
+</html>
